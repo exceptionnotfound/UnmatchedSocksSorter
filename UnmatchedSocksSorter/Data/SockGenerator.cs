@@ -51,5 +51,24 @@ namespace UnmatchedSocksSorter.Data
 
             return pair;
         }
+
+        private static bool AreMatched(List<Sock> socks)
+        {
+            bool areMatched = true;
+            for(int i = 0; i < socks.Count; i = i + 2)
+            {
+                var firstSock = socks[i];
+                var secondSock = socks[i + 1];
+
+                areMatched = areMatched 
+                             && firstSock.Color == secondSock.Color 
+                             && firstSock.Owner == secondSock.Owner 
+                             && firstSock.Length == secondSock.Length;
+
+                if (areMatched == false) break;
+            }
+
+            return areMatched;
+        }
     }
 }
