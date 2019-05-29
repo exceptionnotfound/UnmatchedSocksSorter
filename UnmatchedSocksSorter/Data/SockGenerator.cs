@@ -52,7 +52,7 @@ namespace UnmatchedSocksSorter.Data
             return pair;
         }
 
-        private static bool AreMatched(List<Sock> socks)
+        public static bool AreMatched(List<Sock> socks)
         {
             bool areMatched = true;
             for(int i = 0; i < socks.Count; i = i + 2)

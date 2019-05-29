@@ -12,14 +12,27 @@ namespace UnmatchedSocksSorter
 
             char menuInput = 'a';
 
+            Sorter sorter = new Sorter();
+
             while (menuInput != 'Q')
             {
                 ShowMenu();
 
-                menuInput = Console.ReadLine()[0];
+                menuInput = Console.ReadLine().ToUpper()[0];
 
                 switch(menuInput)
                 {
+                    case '1':
+                        socks = sorter.NaiveSort(socks);
+                        CheckIfSorted(socks);
+                        break;
+
+                    case '2':
+                        socks = sorter.NaivePartialSort(socks);
+                        CheckIfSorted(socks);
+                        break;
+
+
                     case 'L':
                         ListSocks(socks);
                         break;
@@ -36,10 +49,22 @@ namespace UnmatchedSocksSorter
 
         private static void ShowMenu()
         {
+            Console.WriteLine(Environment.NewLine);
             Console.WriteLine("Here's your options.");
+            Console.WriteLine("1 - Naive Sort");
+            Console.WriteLine("2 - Naive Partial Sort");
             Console.WriteLine("L - List All Socks");
             Console.WriteLine("N - Generate New Sock Pile");
             Console.WriteLine("Q - Quit");
+        }
+
+        private static void CheckIfSorted(List<Sock> socks)
+        {
+            bool areSorted = SockGenerator.AreMatched(socks);
+            if(!areSorted)
+            {
+                Console.WriteLine("WARNING - The socks are not perfectly sorted!!!");
+            }
         }
 
         private static void ListSocks(List<Sock> socks)
