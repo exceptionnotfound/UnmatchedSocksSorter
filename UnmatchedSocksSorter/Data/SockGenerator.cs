@@ -35,19 +35,16 @@ namespace UnmatchedSocksSorter.Data
             var sockColor = random.Next(0, 5);
             var sockLength = random.Next(0, 3);
 
-            pair.Add(new Sock()
+            var sock = new Sock()
             {
                 Owner = (SockOwner)sockOwner,
                 Color = (SockColor)sockColor,
                 Length = (SockLength)sockLength
-            });
+            };
 
-            pair.Add(new Sock()
-            {
-                Owner = (SockOwner)sockOwner,
-                Color = (SockColor)sockColor,
-                Length = (SockLength)sockLength
-            });
+            pair.Add(sock);
+            
+            pair.Add(sock);
 
             return pair;
         }
