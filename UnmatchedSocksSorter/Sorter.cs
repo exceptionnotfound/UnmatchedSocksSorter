@@ -245,5 +245,37 @@ namespace UnmatchedSocksSorter
             Console.WriteLine("Nobody cares about matching socks anyway.");
             return socks;
         }
+
+        public List<Sock> DictionarySort(List<Sock> unmatchedSocks)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            List<Sock> matchedSocks = new List<Sock>();
+
+            var waitingForMatch = new Dictionary<(SockOwner, SockColor, SockLength), Sock>();
+            while (unmatchedSocks.Any())
+            {
+                int index = unmatchedSocks.Count - 1;
+                var sock = unmatchedSocks[index];
+                unmatchedSocks.RemoveAt(index);
+
+                var key = (sock.Owner, sock.Color, sock.Length);
+                if (waitingForMatch.TryGetValue(key, out var matchingSock))
+                {
+                    matchedSocks.Add(sock);
+                    matchedSocks.Add(matchingSock);
+                    waitingForMatch.Remove(key);
+                }
+                else
+                {
+                    waitingForMatch.Add(key, sock);
+                }
+            }
+
+            watch.Stop();
+            Console.WriteLine("Completed Dictionary Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
+
+            return matchedSocks;
+        }
     }
 }
